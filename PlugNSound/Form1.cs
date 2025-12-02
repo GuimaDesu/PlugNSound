@@ -16,5 +16,19 @@ namespace PlugNSound
         {
             InitializeComponent();
         }
+
+        private void btnOpenShop_Click(object sender, EventArgs e)
+        {
+            // Create and show Form2 (the shop)
+            Form2 shop = new Form2();
+            shop.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Create and show Form2
+            var shop = new Form2();
+            shop.Show();
+        }
     }
 }
