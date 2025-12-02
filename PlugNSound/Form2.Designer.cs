@@ -28,24 +28,23 @@ namespace PlugNSound
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.PanelMenu = new System.Windows.Forms.Panel();
-            this.PanelLogo = new System.Windows.Forms.Panel();
-            this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.lblLittleChildForm = new System.Windows.Forms.Label();
-            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             this.iconButton6 = new FontAwesome.Sharp.IconButton();
             this.iconButton5 = new FontAwesome.Sharp.IconButton();
             this.iconButton4 = new FontAwesome.Sharp.IconButton();
             this.iconButton3 = new FontAwesome.Sharp.IconButton();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.PanelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.lblLittleChildForm = new System.Windows.Forms.Label();
+            this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             this.PanelMenu.SuspendLayout();
             this.PanelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelTitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelMenu
@@ -61,55 +60,8 @@ namespace PlugNSound
             this.PanelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelMenu.Location = new System.Drawing.Point(0, 0);
             this.PanelMenu.Name = "PanelMenu";
-            this.PanelMenu.Size = new System.Drawing.Size(220, 562);
+            this.PanelMenu.Size = new System.Drawing.Size(220, 1041);
             this.PanelMenu.TabIndex = 4;
-            // 
-            // PanelLogo
-            // 
-            this.PanelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(9)))), ((int)(((byte)(108)))));
-            this.PanelLogo.Controls.Add(this.pictureBox1);
-            this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelLogo.Location = new System.Drawing.Point(0, 0);
-            this.PanelLogo.Name = "PanelLogo";
-            this.PanelLogo.Size = new System.Drawing.Size(220, 140);
-            this.PanelLogo.TabIndex = 0;
-            // 
-            // panelTitleBar
-            // 
-            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
-            this.panelTitleBar.Controls.Add(this.lblLittleChildForm);
-            this.panelTitleBar.Controls.Add(this.iconPictureBox1);
-            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitleBar.Location = new System.Drawing.Point(220, 0);
-            this.panelTitleBar.Name = "panelTitleBar";
-            this.panelTitleBar.Size = new System.Drawing.Size(964, 75);
-            this.panelTitleBar.TabIndex = 5;
-            this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown_1);
-            // 
-            // lblLittleChildForm
-            // 
-            this.lblLittleChildForm.AutoSize = true;
-            this.lblLittleChildForm.BackColor = System.Drawing.Color.Transparent;
-            this.lblLittleChildForm.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLittleChildForm.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblLittleChildForm.Location = new System.Drawing.Point(54, 31);
-            this.lblLittleChildForm.Name = "lblLittleChildForm";
-            this.lblLittleChildForm.Size = new System.Drawing.Size(28, 13);
-            this.lblLittleChildForm.TabIndex = 2;
-            this.lblLittleChildForm.Text = "Title";
-            // 
-            // iconPictureBox1
-            // 
-            this.iconPictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
-            this.iconPictureBox1.ForeColor = System.Drawing.Color.MediumSlateBlue;
-            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.House;
-            this.iconPictureBox1.IconColor = System.Drawing.Color.MediumSlateBlue;
-            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox1.Location = new System.Drawing.Point(16, 22);
-            this.iconPictureBox1.Name = "iconPictureBox1";
-            this.iconPictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.iconPictureBox1.TabIndex = 0;
-            this.iconPictureBox1.TabStop = false;
             // 
             // iconButton6
             // 
@@ -243,6 +195,16 @@ namespace PlugNSound
             this.iconButton1.UseVisualStyleBackColor = true;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
+            // PanelLogo
+            // 
+            this.PanelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(9)))), ((int)(((byte)(108)))));
+            this.PanelLogo.Controls.Add(this.pictureBox1);
+            this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PanelLogo.Location = new System.Drawing.Point(0, 0);
+            this.PanelLogo.Name = "PanelLogo";
+            this.PanelLogo.Size = new System.Drawing.Size(220, 140);
+            this.PanelLogo.TabIndex = 0;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PlugNSound.Properties.Resources.logo_plugnsound;
@@ -254,23 +216,59 @@ namespace PlugNSound
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // panelTitleBar
+            // 
+            this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
+            this.panelTitleBar.Controls.Add(this.lblLittleChildForm);
+            this.panelTitleBar.Controls.Add(this.iconPictureBox1);
+            this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitleBar.Location = new System.Drawing.Point(220, 0);
+            this.panelTitleBar.Name = "panelTitleBar";
+            this.panelTitleBar.Size = new System.Drawing.Size(1684, 75);
+            this.panelTitleBar.TabIndex = 5;
+            this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown_1);
+            // 
+            // lblLittleChildForm
+            // 
+            this.lblLittleChildForm.AutoSize = true;
+            this.lblLittleChildForm.BackColor = System.Drawing.Color.Transparent;
+            this.lblLittleChildForm.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLittleChildForm.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblLittleChildForm.Location = new System.Drawing.Point(54, 31);
+            this.lblLittleChildForm.Name = "lblLittleChildForm";
+            this.lblLittleChildForm.Size = new System.Drawing.Size(28, 13);
+            this.lblLittleChildForm.TabIndex = 2;
+            this.lblLittleChildForm.Text = "Title";
+            // 
+            // iconPictureBox1
+            // 
+            this.iconPictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
+            this.iconPictureBox1.ForeColor = System.Drawing.Color.MediumSlateBlue;
+            this.iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.House;
+            this.iconPictureBox1.IconColor = System.Drawing.Color.MediumSlateBlue;
+            this.iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconPictureBox1.Location = new System.Drawing.Point(16, 22);
+            this.iconPictureBox1.Name = "iconPictureBox1";
+            this.iconPictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.iconPictureBox1.TabIndex = 0;
+            this.iconPictureBox1.TabStop = false;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 562);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.PanelMenu);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form2";
             this.Text = "plugNsound";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.PanelMenu.ResumeLayout(false);
             this.PanelLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
