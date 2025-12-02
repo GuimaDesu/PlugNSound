@@ -24,6 +24,9 @@ namespace PlugNSound
             leftBorderBtn.Size = new Size(7, 60);
             leftBorderBtn.Enabled = false; // Prevent blocking clicks
             PanelMenu.Controls.Add(leftBorderBtn);
+            
+            // Close application when Form2 is closed
+            this.FormClosing += Form2_FormClosing;
         }
 
         private struct rgbColors
@@ -123,7 +126,15 @@ namespace PlugNSound
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            
+            // Maximize the window
+            this.WindowState = FormWindowState.Maximized;
+        }
 
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void reset()
