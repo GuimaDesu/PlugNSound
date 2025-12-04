@@ -88,7 +88,7 @@ namespace PlugNSound
             {
                 // Use relative path from the application directory
                 // This will work on any PC as long as the assets folder is in the project
-                string imagePath = System.IO.Path.Combine(Application.StartupPath, @"assets\day-night-icon-sun-orange.JPG");
+                string imagePath = System.IO.Path.Combine(Application.StartupPath, @"assets\depositphotos_599551436-stock-illustration-day-night-icon-sun-orange.jpg");
                 
                 // Check if file exists
                 if (System.IO.File.Exists(imagePath))
