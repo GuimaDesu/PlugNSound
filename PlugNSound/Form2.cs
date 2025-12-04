@@ -352,10 +352,10 @@ namespace PlugNSound
 
         private void btnCarrinho_Click(object sender, EventArgs e)
         {
-            // Não ativar botão do menu ao abrir carrinho
+            // Nï¿½o ativar botï¿½o do menu ao abrir carrinho
             OpenChildForm(new FormCarrinho());
             
-            // Atualizar título manualmente para o carrinho
+            // Atualizar tï¿½tulo manualmente para o carrinho
             iconPictureBox1.IconChar = IconChar.ShoppingCart;
             iconPictureBox1.IconColor = Color.FromArgb(24, 161, 251);
             lblLittleChildForm.Text = "Carrinho de Compras";
