@@ -16,7 +16,10 @@ namespace PlugNSound
     {
         private IconButton currentBtn;
         private Panel leftBorderBtn;
-        private Form currentChildForm;
+        private bool isDarkMode = false;
+        private Panel togglePanel;
+        private Label toggleLabel;
+        private PictureBox toggleIcon;
         
         public Form2()
         {
@@ -28,6 +31,166 @@ namespace PlugNSound
             
             // Close application when Form2 is closed
             this.FormClosing += Form2_FormClosing;
+            
+            // Create dark mode toggle slider
+            CreateDarkModeToggle();
+        }
+
+        private void CreateDarkModeToggle()
+        {
+            // Label
+            toggleLabel = new Label();
+            toggleLabel.Text = "Dark Mode";
+            toggleLabel.ForeColor = Color.White;
+            toggleLabel.BackColor = Color.Transparent;
+            toggleLabel.Location = new Point(panelTitleBar.Width - 180, 25);
+            toggleLabel.AutoSize = true;
+            toggleLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panelTitleBar.Controls.Add(toggleLabel);
+
+            // Toggle background panel (track)
+            togglePanel = new Panel();
+            togglePanel.Size = new Size(70, 35);
+            togglePanel.Location = new Point(panelTitleBar.Width - 100, 18);
+            togglePanel.BackColor = Color.FromArgb(200, 200, 200);
+            togglePanel.Cursor = Cursors.Hand;
+            togglePanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            togglePanel.Click += ToggleSlider_Click;
+            panelTitleBar.Controls.Add(togglePanel);
+
+            // Toggle icon - the PictureBox IS the slider now (no background panel)
+            // THE IMAGE IS PLACED HERE - this is the sliding element with the sun/moon icon
+            toggleIcon = new PictureBox();
+            toggleIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            toggleIcon.Size = new Size(32, 32);
+            toggleIcon.Location = new Point(2, 2);
+            toggleIcon.BackColor = Color.Transparent;
+            toggleIcon.Cursor = Cursors.Hand;
+            toggleIcon.Click += ToggleSlider_Click;
+            try
+            {
+                // Load the combined day/night image and show left half (sun)
+                UpdateToggleIcon(false);
+            }
+            catch
+            {
+                // Fallback if image not found
+                toggleIcon.BackColor = Color.Orange;
+            }
+            // ADD THE IMAGE TO THE TOGGLE PANEL (the track)
+            togglePanel.Controls.Add(toggleIcon);
+            toggleIcon.BringToFront();
+        }
+
+        private void UpdateToggleIcon(bool showMoon)
+        {
+            try
+            {
+                // Use relative path from the application directory
+                // This will work on any PC as long as the assets folder is in the project
+                string imagePath = System.IO.Path.Combine(Application.StartupPath, @"assets\day-night-icon-sun-orange.JPG");
+                
+                // Check if file exists
+                if (System.IO.File.Exists(imagePath))
+                {
+                    Bitmap fullImage = new Bitmap(imagePath);
+                    
+                    // Calculate half width for cropping
+                    int halfWidth = fullImage.Width / 2;
+                    int sourceX = showMoon ? halfWidth : 0; // Right half for moon, left half for sun
+                    
+                    // Create a cropped bitmap showing either sun (left) or moon (right)
+                    Bitmap croppedImage = new Bitmap(halfWidth, fullImage.Height);
+                    using (Graphics g = Graphics.FromImage(croppedImage))
+                    {
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                        
+                        g.DrawImage(fullImage,
+                            new Rectangle(0, 0, halfWidth, fullImage.Height),
+                            new Rectangle(sourceX, 0, halfWidth, fullImage.Height),
+                            GraphicsUnit.Pixel);
+                    }
+                    
+                    // Dispose old image if exists
+                    if (toggleIcon.Image != null)
+                    {
+                        toggleIcon.Image.Dispose();
+                    }
+                    
+                    toggleIcon.Image = croppedImage;
+                    fullImage.Dispose();
+                }
+                else
+                {
+                    // File not found - show colored fallback
+                    toggleIcon.BackColor = showMoon ? Color.DarkBlue : Color.Orange;
+                }
+            }
+            catch
+            {
+                toggleIcon.BackColor = showMoon ? Color.DarkBlue : Color.Orange;
+            }
+        }
+
+        private void ToggleSlider_Click(object sender, EventArgs e)
+        {
+            isDarkMode = !isDarkMode;
+            AnimateToggle();
+            ApplyTheme();
+        }
+
+        private void AnimateToggle()
+        {
+            Timer animationTimer = new Timer();
+            animationTimer.Interval = 10;
+            int targetX = isDarkMode ? 36 : 2; // Adjusted for larger slider
+            int currentX = toggleIcon.Location.X;
+            int step = isDarkMode ? 3 : -3;
+
+            animationTimer.Tick += (s, e) =>
+            {
+                if ((isDarkMode && currentX >= targetX) || (!isDarkMode && currentX <= targetX))
+                {
+                    toggleIcon.Location = new Point(targetX, 2);
+                    animationTimer.Stop();
+                    animationTimer.Dispose();
+                }
+                else
+                {
+                    currentX += step;
+                    toggleIcon.Location = new Point(currentX, 2);
+                }
+            };
+
+            // Update toggle panel color and icon
+            if (isDarkMode)
+            {
+                togglePanel.BackColor = Color.FromArgb(95, 77, 221); // Purple when on
+                UpdateToggleIcon(true); // Show moon (right half)
+            }
+            else
+            {
+                togglePanel.BackColor = Color.FromArgb(200, 200, 200); // Grey when off
+                UpdateToggleIcon(false); // Show sun (left half)
+            }
+
+            animationTimer.Start();
+        }
+
+        private void ApplyTheme()
+        {
+            if (isDarkMode)
+            {
+                // Dark mode - only change background
+                this.BackColor = Color.FromArgb(32, 32, 32);
+            }
+            else
+            {
+                // Light mode - white background
+                this.BackColor = Color.White;
+            }
         }
 
         private struct rgbColors
@@ -154,10 +317,10 @@ namespace PlugNSound
 
         private void btnCarrinho_Click(object sender, EventArgs e)
         {
-            // Não ativar botão do menu ao abrir carrinho
+            // Nï¿½o ativar botï¿½o do menu ao abrir carrinho
             OpenChildForm(new FormCarrinho());
             
-            // Atualizar título manualmente para o carrinho
+            // Atualizar tï¿½tulo manualmente para o carrinho
             iconPictureBox1.IconChar = IconChar.ShoppingCart;
             iconPictureBox1.IconColor = Color.FromArgb(24, 161, 251);
             lblLittleChildForm.Text = "Carrinho de Compras";
