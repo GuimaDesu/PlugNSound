@@ -38,8 +38,10 @@ namespace PlugNSound
             this.PanelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.btnCarrinho = new FontAwesome.Sharp.IconButton();
             this.lblLittleChildForm = new System.Windows.Forms.Label();
             this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            this.panelDesktop = new System.Windows.Forms.Panel();
             this.PanelMenu.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -219,6 +221,7 @@ namespace PlugNSound
             // panelTitleBar
             // 
             this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
+            this.panelTitleBar.Controls.Add(this.btnCarrinho);
             this.panelTitleBar.Controls.Add(this.lblLittleChildForm);
             this.panelTitleBar.Controls.Add(this.iconPictureBox1);
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -227,6 +230,31 @@ namespace PlugNSound
             this.panelTitleBar.Size = new System.Drawing.Size(1684, 75);
             this.panelTitleBar.TabIndex = 5;
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown_1);
+            // 
+            // btnCarrinho
+            // 
+            this.btnCarrinho.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCarrinho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(161)))), ((int)(((byte)(251)))));
+            this.btnCarrinho.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCarrinho.FlatAppearance.BorderSize = 0;
+            this.btnCarrinho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCarrinho.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCarrinho.ForeColor = System.Drawing.Color.White;
+            this.btnCarrinho.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
+            this.btnCarrinho.IconColor = System.Drawing.Color.White;
+            this.btnCarrinho.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCarrinho.IconSize = 28;
+            this.btnCarrinho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCarrinho.Location = new System.Drawing.Point(1524, 15);
+            this.btnCarrinho.Name = "btnCarrinho";
+            this.btnCarrinho.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnCarrinho.Size = new System.Drawing.Size(140, 45);
+            this.btnCarrinho.TabIndex = 3;
+            this.btnCarrinho.Text = "Carrinho (0)";
+            this.btnCarrinho.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCarrinho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCarrinho.UseVisualStyleBackColor = false;
+            this.btnCarrinho.Click += new System.EventHandler(this.btnCarrinho_Click);
             // 
             // lblLittleChildForm
             // 
@@ -253,11 +281,21 @@ namespace PlugNSound
             this.iconPictureBox1.TabIndex = 0;
             this.iconPictureBox1.TabStop = false;
             // 
+            // panelDesktop
+            // 
+            this.panelDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDesktop.Location = new System.Drawing.Point(220, 75);
+            this.panelDesktop.Name = "panelDesktop";
+            this.panelDesktop.Size = new System.Drawing.Size(1684, 966);
+            this.panelDesktop.TabIndex = 6;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.panelDesktop);
             this.Controls.Add(this.panelTitleBar);
             this.Controls.Add(this.PanelMenu);
             this.Name = "Form2";
@@ -286,5 +324,7 @@ namespace PlugNSound
         private System.Windows.Forms.Panel panelTitleBar;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private System.Windows.Forms.Label lblLittleChildForm;
+        private System.Windows.Forms.Panel panelDesktop;
+        private FontAwesome.Sharp.IconButton btnCarrinho;
     }
 }

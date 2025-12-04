@@ -20,6 +20,7 @@ namespace PlugNSound
         private Panel togglePanel;
         private Label toggleLabel;
         private PictureBox toggleIcon;
+        private Form currentChildForm;
         
         public Form2()
         {
@@ -203,6 +204,33 @@ namespace PlugNSound
             public static Color color6 = Color.FromArgb(24, 161, 251);
         }
 
+        private void OpenChildForm(Form childForm)
+        {
+            // Close previous child form if exists
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panelDesktop.Controls.Add(childForm);
+            panelDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            
+            // Atualizar contador do carrinho
+            AtualizarContadorCarrinho();
+        }
+
+        private void AtualizarContadorCarrinho()
+        {
+            int quantidade = CarrinhoManager.ObterQuantidadeTotal();
+            btnCarrinho.Text = $"Carrinho ({quantidade})";
+        }
+
         private void ActivateButton(object senderBtn, Color color)
         {
             // Reset previous button appearance
@@ -255,31 +283,48 @@ namespace PlugNSound
         private void iconButton1_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color1);
+            OpenChildForm(new FormDashboard());
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color2);
+            OpenChildForm(new FormProdutos());
         }
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color3);
+            OpenChildForm(new FormCustomers());
         }
 
         private void iconButton4_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color4);
+            OpenChildForm(new FormMarketing());
         }
 
         private void iconButton5_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color5);
+            OpenChildForm(new FormSettings());
         }
 
         private void iconButton6_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color6);
+            OpenChildForm(new FormAbout());
+        }
+
+        private void btnCarrinho_Click(object sender, EventArgs e)
+        {
+            // Não ativar botão do menu ao abrir carrinho
+            OpenChildForm(new FormCarrinho());
+            
+            // Atualizar título manualmente para o carrinho
+            iconPictureBox1.IconChar = IconChar.ShoppingCart;
+            iconPictureBox1.IconColor = Color.FromArgb(24, 161, 251);
+            lblLittleChildForm.Text = "Carrinho de Compras";
         }
 
         // Use pictureBox1 as the Home button
@@ -297,6 +342,9 @@ namespace PlugNSound
             
             // Apply initial theme (light mode)
             ApplyTheme();
+            
+            // Abrir Dashboard automaticamente
+            iconButton1_Click(iconButton1, EventArgs.Empty);
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -312,6 +360,12 @@ namespace PlugNSound
             iconPictureBox1.IconColor = Color.Gainsboro;
             // Set small label and little title appropriately for Home
             lblLittleChildForm.Text = ""; // Clear little title label
+            
+            // Close child form
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
         }
 
         // Drag Form2 by the title bar
