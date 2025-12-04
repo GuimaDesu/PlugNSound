@@ -73,6 +73,26 @@ namespace PlugNSound.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap day_night_icon {
+            get {
+                object obj = ResourceManager.GetObject("day_night_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap depositphotos_599551436_stock_illustration_day_night_icon_sun_orange {
+            get {
+                object obj = ResourceManager.GetObject("depositphotos_599551436-stock-illustration-day-night-icon-sun-orange", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_plugnsound {
             get {
                 object obj = ResourceManager.GetObject("logo_plugnsound", resourceCulture);
@@ -96,16 +116,6 @@ namespace PlugNSound.Properties {
         internal static System.Drawing.Bitmap png_clipart_computer_icons_button_menu_button_text_area {
             get {
                 object obj = ResourceManager.GetObject("png-clipart-computer-icons-button-menu-button-text-area", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap day_night_icon {
-            get {
-                object obj = ResourceManager.GetObject("day_night_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

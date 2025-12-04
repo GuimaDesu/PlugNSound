@@ -38,6 +38,9 @@ namespace PlugNSound
             this.PanelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.toggleLabel = new System.Windows.Forms.Label();
+            this.togglePanel = new System.Windows.Forms.Panel();
+            this.toggleIcon = new System.Windows.Forms.PictureBox();
             this.btnCarrinho = new FontAwesome.Sharp.IconButton();
             this.lblLittleChildForm = new System.Windows.Forms.Label();
             this.iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
@@ -46,6 +49,8 @@ namespace PlugNSound
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelTitleBar.SuspendLayout();
+            this.togglePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -221,6 +226,8 @@ namespace PlugNSound
             // panelTitleBar
             // 
             this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
+            this.panelTitleBar.Controls.Add(this.toggleLabel);
+            this.panelTitleBar.Controls.Add(this.togglePanel);
             this.panelTitleBar.Controls.Add(this.btnCarrinho);
             this.panelTitleBar.Controls.Add(this.lblLittleChildForm);
             this.panelTitleBar.Controls.Add(this.iconPictureBox1);
@@ -231,6 +238,43 @@ namespace PlugNSound
             this.panelTitleBar.TabIndex = 5;
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown_1);
             // 
+            // toggleLabel
+            // 
+            this.toggleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toggleLabel.AutoSize = true;
+            this.toggleLabel.BackColor = System.Drawing.Color.Transparent;
+            this.toggleLabel.ForeColor = System.Drawing.Color.White;
+            this.toggleLabel.Location = new System.Drawing.Point(1304, 25);
+            this.toggleLabel.Name = "toggleLabel";
+            this.toggleLabel.Size = new System.Drawing.Size(60, 13);
+            this.toggleLabel.TabIndex = 4;
+            this.toggleLabel.Text = "Dark Mode";
+            // 
+            // togglePanel
+            // 
+            this.togglePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.togglePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.togglePanel.Controls.Add(this.toggleIcon);
+            this.togglePanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.togglePanel.Location = new System.Drawing.Point(1384, 18);
+            this.togglePanel.Name = "togglePanel";
+            this.togglePanel.Size = new System.Drawing.Size(70, 35);
+            this.togglePanel.TabIndex = 5;
+            this.togglePanel.Click += new System.EventHandler(this.ToggleSlider_Click);
+            // 
+            // toggleIcon
+            // 
+            this.toggleIcon.BackColor = System.Drawing.Color.Transparent;
+            this.toggleIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.toggleIcon.Image = global::PlugNSound.Properties.Resources.depositphotos_599551436_stock_illustration_day_night_icon_sun_orange;
+            this.toggleIcon.Location = new System.Drawing.Point(2, 2);
+            this.toggleIcon.Name = "toggleIcon";
+            this.toggleIcon.Size = new System.Drawing.Size(32, 32);
+            this.toggleIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.toggleIcon.TabIndex = 0;
+            this.toggleIcon.TabStop = false;
+            this.toggleIcon.Click += new System.EventHandler(this.ToggleSlider_Click);
+            // 
             // btnCarrinho
             // 
             this.btnCarrinho.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -240,12 +284,12 @@ namespace PlugNSound
             this.btnCarrinho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCarrinho.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCarrinho.ForeColor = System.Drawing.Color.White;
-            this.btnCarrinho.IconChar = FontAwesome.Sharp.IconChar.ShoppingCart;
+            this.btnCarrinho.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
             this.btnCarrinho.IconColor = System.Drawing.Color.White;
             this.btnCarrinho.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCarrinho.IconSize = 28;
             this.btnCarrinho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCarrinho.Location = new System.Drawing.Point(1524, 15);
+            this.btnCarrinho.Location = new System.Drawing.Point(1532, 14);
             this.btnCarrinho.Name = "btnCarrinho";
             this.btnCarrinho.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.btnCarrinho.Size = new System.Drawing.Size(140, 45);
@@ -306,6 +350,8 @@ namespace PlugNSound
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
+            this.togglePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.toggleIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -326,5 +372,8 @@ namespace PlugNSound
         private System.Windows.Forms.Label lblLittleChildForm;
         private System.Windows.Forms.Panel panelDesktop;
         private FontAwesome.Sharp.IconButton btnCarrinho;
+        private System.Windows.Forms.Label toggleLabel;
+        private System.Windows.Forms.Panel togglePanel;
+        private System.Windows.Forms.PictureBox toggleIcon;
     }
 }

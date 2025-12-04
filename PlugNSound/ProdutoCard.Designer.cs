@@ -26,19 +26,19 @@ namespace PlugNSound
             // 
             // panelCard
             // 
-            this.panelCard.BackColor = System.Drawing.Color.White;
+            this.panelCard.BackColor = System.Drawing.Color.Transparent;
             this.panelCard.Controls.Add(this.btnAdicionarCarrinho);
             this.panelCard.Controls.Add(this.lblCategoria);
             this.panelCard.Controls.Add(this.lblEstoque);
             this.panelCard.Controls.Add(this.lblPreco);
             this.panelCard.Controls.Add(this.lblNome);
             this.panelCard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCard.Location = new System.Drawing.Point(0, 0);
+            this.panelCard.Location = new System.Drawing.Point(5, 5);
+            this.panelCard.Margin = new System.Windows.Forms.Padding(5);
             this.panelCard.Name = "panelCard";
             this.panelCard.Padding = new System.Windows.Forms.Padding(15);
-            this.panelCard.Size = new System.Drawing.Size(220, 200);
+            this.panelCard.Size = new System.Drawing.Size(210, 190);
             this.panelCard.TabIndex = 0;
-            this.panelCard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCard_Paint);
             this.panelCard.MouseEnter += new System.EventHandler(this.panelCard_MouseEnter);
             this.panelCard.MouseLeave += new System.EventHandler(this.panelCard_MouseLeave);
             // 
@@ -46,12 +46,13 @@ namespace PlugNSound
             // 
             this.btnAdicionarCarrinho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(161)))), ((int)(((byte)(251)))));
             this.btnAdicionarCarrinho.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAdicionarCarrinho.FlatAppearance.BorderSize = 0;
             this.btnAdicionarCarrinho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdicionarCarrinho.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAdicionarCarrinho.ForeColor = System.Drawing.Color.White;
-            this.btnAdicionarCarrinho.Location = new System.Drawing.Point(15, 150);
+            this.btnAdicionarCarrinho.Location = new System.Drawing.Point(15, 145);
             this.btnAdicionarCarrinho.Name = "btnAdicionarCarrinho";
-            this.btnAdicionarCarrinho.Size = new System.Drawing.Size(190, 35);
+            this.btnAdicionarCarrinho.Size = new System.Drawing.Size(180, 35);
             this.btnAdicionarCarrinho.TabIndex = 4;
             this.btnAdicionarCarrinho.Text = "?? Adicionar ao Carrinho";
             this.btnAdicionarCarrinho.UseVisualStyleBackColor = false;
@@ -63,7 +64,7 @@ namespace PlugNSound
             this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.lblCategoria.ForeColor = System.Drawing.Color.White;
             this.lblCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(24)))), ((int)(((byte)(154)))));
-            this.lblCategoria.Location = new System.Drawing.Point(15, 15);
+            this.lblCategoria.Location = new System.Drawing.Point(15, 10);
             this.lblCategoria.Name = "lblCategoria";
             this.lblCategoria.Padding = new System.Windows.Forms.Padding(8, 4, 8, 4);
             this.lblCategoria.Size = new System.Drawing.Size(69, 21);
@@ -75,7 +76,7 @@ namespace PlugNSound
             this.lblEstoque.AutoSize = true;
             this.lblEstoque.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblEstoque.ForeColor = System.Drawing.Color.Gray;
-            this.lblEstoque.Location = new System.Drawing.Point(15, 145);
+            this.lblEstoque.Location = new System.Drawing.Point(15, 140);
             this.lblEstoque.Name = "lblEstoque";
             this.lblEstoque.Size = new System.Drawing.Size(80, 15);
             this.lblEstoque.TabIndex = 2;
@@ -84,22 +85,24 @@ namespace PlugNSound
             // 
             // lblPreco
             // 
+            this.lblPreco.BackColor = System.Drawing.Color.Transparent;
             this.lblPreco.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblPreco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(9)))), ((int)(((byte)(108)))));
-            this.lblPreco.Location = new System.Drawing.Point(15, 105);
+            this.lblPreco.Location = new System.Drawing.Point(15, 100);
             this.lblPreco.Name = "lblPreco";
-            this.lblPreco.Size = new System.Drawing.Size(190, 35);
+            this.lblPreco.Size = new System.Drawing.Size(180, 35);
             this.lblPreco.TabIndex = 1;
             this.lblPreco.Text = "€ 0,00";
             this.lblPreco.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNome
             // 
+            this.lblNome.BackColor = System.Drawing.Color.Transparent;
             this.lblNome.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblNome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(9)))), ((int)(((byte)(108)))));
-            this.lblNome.Location = new System.Drawing.Point(15, 50);
+            this.lblNome.Location = new System.Drawing.Point(15, 45);
             this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(190, 45);
+            this.lblNome.Size = new System.Drawing.Size(180, 45);
             this.lblNome.TabIndex = 0;
             this.lblNome.Text = "Nome do Produto";
             // 
@@ -110,6 +113,7 @@ namespace PlugNSound
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.panelCard);
             this.Name = "ProdutoCard";
+            this.Padding = new System.Windows.Forms.Padding(5);
             this.Size = new System.Drawing.Size(220, 200);
             this.panelCard.ResumeLayout(false);
             this.panelCard.PerformLayout();
