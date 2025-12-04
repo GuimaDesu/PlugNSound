@@ -17,9 +17,7 @@ namespace PlugNSound
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private bool isDarkMode = false;
-        private Panel togglePanel;
-        private Label toggleLabel;
-        private PictureBox toggleIcon;
+        private Form currentChildForm;
         
         public Form2()
         {
@@ -32,101 +30,42 @@ namespace PlugNSound
             // Close application when Form2 is closed
             this.FormClosing += Form2_FormClosing;
             
-            // Create dark mode toggle slider
-            CreateDarkModeToggle();
-        }
-
-        private void CreateDarkModeToggle()
-        {
-            // Label
-            toggleLabel = new Label();
-            toggleLabel.Text = "Dark Mode";
-            toggleLabel.ForeColor = Color.White;
-            toggleLabel.BackColor = Color.Transparent;
-            toggleLabel.Location = new Point(panelTitleBar.Width - 180, 25);
-            toggleLabel.AutoSize = true;
-            toggleLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panelTitleBar.Controls.Add(toggleLabel);
-
-            // Toggle background panel (track)
-            togglePanel = new Panel();
-            togglePanel.Size = new Size(70, 35);
-            togglePanel.Location = new Point(panelTitleBar.Width - 100, 18);
-            togglePanel.BackColor = Color.FromArgb(200, 200, 200);
-            togglePanel.Cursor = Cursors.Hand;
-            togglePanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            togglePanel.Click += ToggleSlider_Click;
-            panelTitleBar.Controls.Add(togglePanel);
-
-            // Toggle icon - the PictureBox IS the slider now (no background panel)
-            // THE IMAGE IS PLACED HERE - this is the sliding element with the sun/moon icon
-            toggleIcon = new PictureBox();
-            toggleIcon.SizeMode = PictureBoxSizeMode.Zoom;
-            toggleIcon.Size = new Size(32, 32);
-            toggleIcon.Location = new Point(2, 2);
-            toggleIcon.BackColor = Color.Transparent;
-            toggleIcon.Cursor = Cursors.Hand;
-            toggleIcon.Click += ToggleSlider_Click;
-            try
-            {
-                // Load the combined day/night image and show left half (sun)
-                UpdateToggleIcon(false);
-            }
-            catch
-            {
-                // Fallback if image not found
-                toggleIcon.BackColor = Color.Orange;
-            }
-            // ADD THE IMAGE TO THE TOGGLE PANEL (the track)
-            togglePanel.Controls.Add(toggleIcon);
-            toggleIcon.BringToFront();
+            // Initialize toggle icon with sun image (light mode)
+            UpdateToggleIcon(false);
         }
 
         private void UpdateToggleIcon(bool showMoon)
         {
             try
             {
-                // Use relative path from the application directory
-                // This will work on any PC as long as the assets folder is in the project
-                string imagePath = System.IO.Path.Combine(Application.StartupPath, @"assets\day-night-icon-sun-orange.JPG");
+                // Use the embedded resource from Properties.Resources
+                Bitmap fullImage = Properties.Resources.day_night_icon;
                 
-                // Check if file exists
-                if (System.IO.File.Exists(imagePath))
+                // Calculate half width for cropping
+                int halfWidth = fullImage.Width / 2;
+                int sourceX = showMoon ? halfWidth : 0; // Right half for moon, left half for sun
+                
+                // Create a cropped bitmap showing either sun (left) or moon (right)
+                Bitmap croppedImage = new Bitmap(halfWidth, fullImage.Height);
+                using (Graphics g = Graphics.FromImage(croppedImage))
                 {
-                    Bitmap fullImage = new Bitmap(imagePath);
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                     
-                    // Calculate half width for cropping
-                    int halfWidth = fullImage.Width / 2;
-                    int sourceX = showMoon ? halfWidth : 0; // Right half for moon, left half for sun
-                    
-                    // Create a cropped bitmap showing either sun (left) or moon (right)
-                    Bitmap croppedImage = new Bitmap(halfWidth, fullImage.Height);
-                    using (Graphics g = Graphics.FromImage(croppedImage))
-                    {
-                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                        
-                        g.DrawImage(fullImage,
-                            new Rectangle(0, 0, halfWidth, fullImage.Height),
-                            new Rectangle(sourceX, 0, halfWidth, fullImage.Height),
-                            GraphicsUnit.Pixel);
-                    }
-                    
-                    // Dispose old image if exists
-                    if (toggleIcon.Image != null)
-                    {
-                        toggleIcon.Image.Dispose();
-                    }
-                    
-                    toggleIcon.Image = croppedImage;
-                    fullImage.Dispose();
+                    g.DrawImage(fullImage,
+                        new Rectangle(0, 0, halfWidth, fullImage.Height),
+                        new Rectangle(sourceX, 0, halfWidth, fullImage.Height),
+                        GraphicsUnit.Pixel);
                 }
-                else
+                
+                // Dispose old image if exists
+                if (toggleIcon.Image != null && toggleIcon.Image != Properties.Resources.day_night_icon)
                 {
-                    // File not found - show colored fallback
-                    toggleIcon.BackColor = showMoon ? Color.DarkBlue : Color.Orange;
+                    toggleIcon.Image.Dispose();
                 }
+                
+                toggleIcon.Image = croppedImage;
             }
             catch
             {
@@ -183,13 +122,106 @@ namespace PlugNSound
         {
             if (isDarkMode)
             {
-                // Dark mode - only change background
+                // Dark mode - change background colors
                 this.BackColor = Color.FromArgb(32, 32, 32);
+                panelDesktop.BackColor = Color.FromArgb(32, 32, 32);
             }
             else
             {
-                // Light mode - white background
+                // Light mode - light background
                 this.BackColor = Color.White;
+                panelDesktop.BackColor = Color.FromArgb(240, 240, 240);
+            }
+            
+            // Apply theme to current child form if exists
+            if (currentChildForm != null)
+            {
+                ApplyThemeToChildForm(currentChildForm);
+            }
+        }
+
+        private void ApplyThemeToChildForm(Form childForm)
+        {
+            if (isDarkMode)
+            {
+                childForm.BackColor = Color.FromArgb(32, 32, 32);
+                ApplyThemeToControls(childForm.Controls, true);
+            }
+            else
+            {
+                childForm.BackColor = Color.FromArgb(240, 240, 240);
+                ApplyThemeToControls(childForm.Controls, false);
+            }
+        }
+
+        private void ApplyThemeToControls(Control.ControlCollection controls, bool isDark)
+        {
+            foreach (Control control in controls)
+            {
+                // Skip ProdutoCard controls - they have their own white background
+                if (control is ProdutoCard)
+                {
+                    continue;
+                }
+                
+                // Apply theme to labels
+                if (control is Label label)
+                {
+                    label.ForeColor = isDark ? Color.White : Color.Black;
+                }
+                // Apply theme to panels (except special colored panels)
+                else if (control is Panel panel && panel.BackColor != Color.Transparent)
+                {
+                    // Only change panels that have default or light colors
+                    if (panel.BackColor == Color.FromArgb(240, 240, 240) || 
+                        panel.BackColor == Color.White ||
+                        panel.BackColor == Color.FromArgb(32, 32, 32))
+                    {
+                        panel.BackColor = isDark ? Color.FromArgb(32, 32, 32) : Color.FromArgb(240, 240, 240);
+                    }
+                }
+                // Apply theme to FlowLayoutPanels
+                else if (control is FlowLayoutPanel flowPanel)
+                {
+                    if (flowPanel.BackColor == Color.FromArgb(240, 240, 240) || 
+                        flowPanel.BackColor == Color.White ||
+                        flowPanel.BackColor == Color.FromArgb(32, 32, 32))
+                    {
+                        flowPanel.BackColor = isDark ? Color.FromArgb(32, 32, 32) : Color.FromArgb(240, 240, 240);
+                    }
+                }
+                // Apply theme to DataGridViews
+                else if (control is DataGridView dgv)
+                {
+                    if (isDark)
+                    {
+                        dgv.BackgroundColor = Color.FromArgb(45, 45, 45);
+                        dgv.DefaultCellStyle.BackColor = Color.FromArgb(45, 45, 45);
+                        dgv.DefaultCellStyle.ForeColor = Color.White;
+                        dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(60, 60, 60);
+                        dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                        dgv.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(60, 60, 60);
+                        dgv.RowHeadersDefaultCellStyle.ForeColor = Color.White;
+                        dgv.GridColor = Color.FromArgb(70, 70, 70);
+                    }
+                    else
+                    {
+                        dgv.BackgroundColor = Color.White;
+                        dgv.DefaultCellStyle.BackColor = Color.White;
+                        dgv.DefaultCellStyle.ForeColor = Color.Black;
+                        dgv.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.Control;
+                        dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+                        dgv.RowHeadersDefaultCellStyle.BackColor = SystemColors.Control;
+                        dgv.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
+                        dgv.GridColor = SystemColors.ControlDark;
+                    }
+                }
+                
+                // Recursively apply to child controls (but not inside ProdutoCard)
+                if (control.HasChildren && !(control is ProdutoCard))
+                {
+                    ApplyThemeToControls(control.Controls, isDark);
+                }
             }
         }
 
@@ -219,6 +251,9 @@ namespace PlugNSound
             panelDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            
+            // Apply current theme to the child form
+            ApplyThemeToChildForm(childForm);
             
             // Atualizar contador do carrinho
             AtualizarContadorCarrinho();
@@ -338,6 +373,9 @@ namespace PlugNSound
             
             // Maximize the window
             this.WindowState = FormWindowState.Maximized;
+            
+            // Apply initial theme (light mode)
+            ApplyTheme();
             
             // Abrir Dashboard automaticamente
             iconButton1_Click(iconButton1, EventArgs.Empty);

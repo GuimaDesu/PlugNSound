@@ -23,7 +23,7 @@ namespace PlugNSound
             this.BackColor = Color.FromArgb(255, 255, 255);
             
             // Se você já tiver um PictureBox no designer
-            pictureBox1.Image = Image.FromFile("logo_plugnsound.png");
+            pictureBox1.Image = Properties.Resources.logo_plugnsound;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom; // Ajusta a imagem proporcionalmente
             
             // Define o Anchor para centralizar como label1 e button1

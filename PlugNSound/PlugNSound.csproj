@@ -160,5 +160,8 @@
   <ItemGroup>
     <None Include="assets\logo_plugnsound-removebg-preview.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\depositphotos_599551436-stock-illustration-day-night-icon-sun-orange.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
