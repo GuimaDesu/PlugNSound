@@ -50,10 +50,10 @@ namespace PlugNSound
         private void ConfigurarCard()
         {
             lblNome.Text = produto.Nome;
-            lblPreco.Text = $"€ {produto.Preco:F2}";
+            lblPreco.Text = $"â‚¬ {produto.Preco:F2}";
             lblCategoria.Text = produto.Categoria;
             
-            // Não mostrar estoque para clientes
+            // NÃ£o mostrar estoque para clientes
             lblEstoque.Visible = false;
         }
 
@@ -96,7 +96,7 @@ namespace PlugNSound
         private void picBoxProduto_Click(object sender, EventArgs e)
         {
             // Show product details or expand image
-            MessageBox.Show($"{produto.Nome}\n\n{produto.Descricao}\n\nPreço: € {produto.Preco:F2}", 
+            MessageBox.Show($"{produto.Nome}\n\n{produto.Descricao}\n\nPreÃ§o: â‚¬ {produto.Preco:F2}", 
                 "Detalhes do Produto", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

@@ -376,12 +376,12 @@ namespace PlugNSound
 
         private void btnCarrinho_Click(object sender, EventArgs e)
         {
-            // Não ativar botão do menu ao abrir carrinho
+            // Nï¿½o ativar botï¿½o do menu ao abrir carrinho
             disableButton();
             leftBorderBtn.Visible = false;
             OpenChildForm(new FormCarrinho());
             
-            // Atualizar título manualmente para o carrinho
+            // Atualizar tï¿½tulo manualmente para o carrinho
             iconPictureBox1.IconChar = IconChar.ShoppingCart;
             iconPictureBox1.IconColor = Color.FromArgb(24, 161, 251);
             lblLittleChildForm.Text = "Carrinho de Compras";
@@ -390,14 +390,14 @@ namespace PlugNSound
         // Use pictureBox1 as the Home button - abre a dashboard sem produtos
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Desativar botão ativo do menu
+            // Desativar botï¿½o ativo do menu
             disableButton();
             leftBorderBtn.Visible = false;
             
-            // Abrir FormHome (dashboard com estatísticas, sem produtos)
+            // Abrir FormHome (dashboard com estatï¿½sticas, sem produtos)
             OpenChildForm(new FormHome());
             
-            // Atualizar título para Home
+            // Atualizar tï¿½tulo para Home
             iconPictureBox1.IconChar = IconChar.House;
             iconPictureBox1.IconColor = Color.FromArgb(90, 24, 154);
             lblLittleChildForm.Text = "Home";
@@ -413,7 +413,7 @@ namespace PlugNSound
             // Apply initial theme (light mode)
             ApplyTheme();
             
-            // Abrir Home automaticamente (dashboard com estatísticas)
+            // Abrir Home automaticamente (dashboard com estatï¿½sticas)
             pictureBox1_Click(pictureBox1, EventArgs.Empty);
         }
 
