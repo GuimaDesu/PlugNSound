@@ -164,10 +164,32 @@ namespace PlugNSound
                     continue;
                 }
                 
-                // Apply theme to labels
+                // Apply theme to labels - but skip labels that are white (inside colored panels/cards)
                 if (control is Label label)
                 {
-                    label.ForeColor = isDark ? Color.White : Color.Black;
+                    // Don't change white labels (they're on colored backgrounds)
+                    if (label.ForeColor != Color.White && 
+                        label.ForeColor != Color.FromArgb(255, 255, 255))
+                    {
+                        // Also skip labels inside panels with gradient backgrounds
+                        bool isInColoredPanel = false;
+                        if (label.Parent is Panel parentPanel)
+                        {
+                            // Check if parent panel is a stat card or colored panel
+                            if (parentPanel.BackColor == Color.Transparent ||
+                                parentPanel.Name.StartsWith("panelCard") ||
+                                parentPanel.Name == "panelQuickActions" ||
+                                parentPanel.Name == "panelWelcome")
+                            {
+                                isInColoredPanel = true;
+                            }
+                        }
+                        
+                        if (!isInColoredPanel)
+                        {
+                            label.ForeColor = isDark ? Color.White : Color.Black;
+                        }
+                    }
                 }
                 // Apply theme to panels (except special colored panels)
                 else if (control is Panel panel && panel.BackColor != Color.Transparent)
@@ -175,7 +197,8 @@ namespace PlugNSound
                     // Only change panels that have default or light colors
                     if (panel.BackColor == Color.FromArgb(240, 240, 240) || 
                         panel.BackColor == Color.White ||
-                        panel.BackColor == Color.FromArgb(32, 32, 32))
+                        panel.BackColor == Color.FromArgb(32, 32, 32) ||
+                        panel.BackColor == Color.FromArgb(245, 245, 250))
                     {
                         panel.BackColor = isDark ? Color.FromArgb(32, 32, 32) : Color.FromArgb(240, 240, 240);
                     }
@@ -185,7 +208,8 @@ namespace PlugNSound
                 {
                     if (flowPanel.BackColor == Color.FromArgb(240, 240, 240) || 
                         flowPanel.BackColor == Color.White ||
-                        flowPanel.BackColor == Color.FromArgb(32, 32, 32))
+                        flowPanel.BackColor == Color.FromArgb(32, 32, 32) ||
+                        flowPanel.BackColor == Color.Transparent)
                     {
                         flowPanel.BackColor = isDark ? Color.FromArgb(32, 32, 32) : Color.FromArgb(240, 240, 240);
                     }
@@ -317,7 +341,7 @@ namespace PlugNSound
         private void iconButton1_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, rgbColors.color1);
-            OpenChildForm(new FormDashboard());
+            OpenChildForm(new FormDashboard()); // Mostra apenas produtos
         }
 
         private void iconButton2_Click(object sender, EventArgs e)
@@ -353,6 +377,8 @@ namespace PlugNSound
         private void btnCarrinho_Click(object sender, EventArgs e)
         {
             // N�o ativar bot�o do menu ao abrir carrinho
+            disableButton();
+            leftBorderBtn.Visible = false;
             OpenChildForm(new FormCarrinho());
             
             // Atualizar t�tulo manualmente para o carrinho
@@ -361,10 +387,20 @@ namespace PlugNSound
             lblLittleChildForm.Text = "Carrinho de Compras";
         }
 
-        // Use pictureBox1 as the Home button
+        // Use pictureBox1 as the Home button - abre a dashboard sem produtos
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            reset();
+            // Desativar bot�o ativo do menu
+            disableButton();
+            leftBorderBtn.Visible = false;
+            
+            // Abrir FormHome (dashboard com estat�sticas, sem produtos)
+            OpenChildForm(new FormHome());
+            
+            // Atualizar t�tulo para Home
+            iconPictureBox1.IconChar = IconChar.House;
+            iconPictureBox1.IconColor = Color.FromArgb(90, 24, 154);
+            lblLittleChildForm.Text = "Home";
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -377,8 +413,8 @@ namespace PlugNSound
             // Apply initial theme (light mode)
             ApplyTheme();
             
-            // Abrir Dashboard automaticamente
-            iconButton1_Click(iconButton1, EventArgs.Empty);
+            // Abrir Home automaticamente (dashboard com estat�sticas)
+            pictureBox1_Click(pictureBox1, EventArgs.Empty);
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -390,15 +426,14 @@ namespace PlugNSound
         {
             disableButton();
             leftBorderBtn.Visible = false;
-            iconPictureBox1.IconChar = IconChar.House; // Use designer icon
+            iconPictureBox1.IconChar = IconChar.House;
             iconPictureBox1.IconColor = Color.Gainsboro;
-            // Set small label and little title appropriately for Home
-            lblLittleChildForm.Text = ""; // Clear little title label
+            lblLittleChildForm.Text = "";
             
-            // Close child form
             if (currentChildForm != null)
             {
                 currentChildForm.Close();
+                currentChildForm = null;
             }
         }
 

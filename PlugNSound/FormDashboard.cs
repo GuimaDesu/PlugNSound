@@ -1,7 +1,9 @@
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PlugNSound
 {
@@ -10,6 +12,7 @@ namespace PlugNSound
         public FormDashboard()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
             CarregarProdutos();
         }
 
@@ -25,21 +28,12 @@ namespace PlugNSound
             foreach (var produto in produtos)
             {
                 ProdutoCard card = new ProdutoCard(produto);
-                card.Margin = new Padding(10);
+                card.Margin = new Padding(15);
                 flowLayoutProdutos.Controls.Add(card);
             }
 
-            // Atualizar informações da loja
-            AtualizarInformacoes(produtos);
-        }
-
-        private void AtualizarInformacoes(System.Collections.Generic.List<Produto> produtos)
-        {
-            int totalProdutos = produtos.Count;
-            var categorias = produtos.Select(p => p.Categoria).Distinct().Count();
-            
-            lblTotalProdutos.Text = totalProdutos.ToString();
-            lblTotalCategorias.Text = categorias.ToString();
+            // Atualizar contagem
+            lblContagem.Text = $"{produtos.Count} produtos disponíveis";
         }
     }
 }

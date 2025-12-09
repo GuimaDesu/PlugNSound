@@ -50,10 +50,10 @@ namespace PlugNSound
         private void ConfigurarCard()
         {
             lblNome.Text = produto.Nome;
-            lblPreco.Text = $"� {produto.Preco:F2}";
+            lblPreco.Text = $"€ {produto.Preco:F2}";
             lblCategoria.Text = produto.Categoria;
             
-            // N�o mostrar estoque para clientes
+            // Não mostrar estoque para clientes
             lblEstoque.Visible = false;
         }
 
@@ -81,11 +81,23 @@ namespace PlugNSound
             // No hover effect
         }
 
+        private void panelCard_Paint(object sender, PaintEventArgs e)
+        {
+            // Custom paint handled in OnPaint
+        }
+
         private void btnAdicionarCarrinho_Click(object sender, EventArgs e)
         {
             CarrinhoManager.AdicionarProduto(produto, 1);
             MessageBox.Show($"{produto.Nome} foi adicionado ao carrinho!", "Produto Adicionado", 
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void picBoxProduto_Click(object sender, EventArgs e)
+        {
+            // Show product details or expand image
+            MessageBox.Show($"{produto.Nome}\n\n{produto.Descricao}\n\nPreço: € {produto.Preco:F2}", 
+                "Detalhes do Produto", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
